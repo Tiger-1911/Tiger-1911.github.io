@@ -6,14 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Five</title>
+  <title>XSS | Five</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Five">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;archives&#x2F;index.html">
+  <meta name="description" content="XSS跨站脚本攻击与防御闭合引号与标签1、PHP中的htmlspecialchars(string,flags,character-set,double_encode)函数 ​    作用：将预定义的字符转化为html实体 ​    预定义字符如下：&amp;amp; “ ‘ &amp;lt; &amp;gt; ​    第二个参数： ENT_COMPAT - 默认。仅编码双引号。 ENT_QUOTES - 编码双引号和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XSS">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;06&#x2F;XSS&#x2F;index.html">
 <meta property="og:site_name" content="Five">
+<meta property="og:description" content="XSS跨站脚本攻击与防御闭合引号与标签1、PHP中的htmlspecialchars(string,flags,character-set,double_encode)函数 ​    作用：将预定义的字符转化为html实体 ​    预定义字符如下：&amp;amp; “ ‘ &amp;lt; &amp;gt; ​    第二个参数： ENT_COMPAT - 默认。仅编码双引号。 ENT_QUOTES - 编码双引号和">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="e:&#x2F;ET_Blog&#x2F;Hexo&#x2F;source&#x2F;_posts&#x2F;images&#x2F;2.png">
+<meta property="og:image" content="e:&#x2F;ET_Blog&#x2F;Hexo&#x2F;source&#x2F;_posts&#x2F;images&#x2F;1.PNG">
+<meta property="og:image" content="e:&#x2F;ET_Blog&#x2F;Hexo&#x2F;source&#x2F;_posts&#x2F;images&#x2F;3.PNG">
+<meta property="og:image" content="e:&#x2F;ET_Blog&#x2F;Hexo&#x2F;source&#x2F;_posts&#x2F;images&#x2F;4.PNG">
+<meta property="og:image" content="e:&#x2F;ET_Blog&#x2F;Hexo&#x2F;source&#x2F;_posts&#x2F;images&#x2F;5.PNG">
+<meta property="og:image" content="e:&#x2F;ET_Blog&#x2F;Hexo&#x2F;source&#x2F;_posts&#x2F;images&#x2F;7.PNG">
+<meta property="og:updated_time" content="2019-11-06T13:59:09.236Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="e:&#x2F;ET_Blog&#x2F;Hexo&#x2F;source&#x2F;_posts&#x2F;images&#x2F;2.png">
   
     <link rel="alternative" href="/atom.xml" title="Five" type="application/atom+xml">
   
@@ -141,49 +151,207 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-XSS" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/06/XSS/" class="archive-article-date">
-  	<time datetime="2019-11-06T13:58:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-06</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/06/XSS/">XSS</a>
+    <h1 class="article-title" itemprop="name">
+      XSS
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2019/11/06/XSS/" class="archive-article-date">
+  	<time datetime="2019-11-06T13:58:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="XSS跨站脚本攻击与防御"><a href="#XSS跨站脚本攻击与防御" class="headerlink" title="XSS跨站脚本攻击与防御"></a>XSS跨站脚本攻击与防御</h1><h2 id="闭合引号与标签"><a href="#闭合引号与标签" class="headerlink" title="闭合引号与标签"></a>闭合引号与标签</h2><p>1、PHP中的htmlspecialchars(string,flags,character-set,double_encode)函数</p>
+<p>​    作用：将预定义的字符转化为html实体</p>
+<p>​    预定义字符如下：&amp; “ ‘ &lt; &gt;</p>
+<p>​    第二个参数：</p>
+<pre><code>ENT_COMPAT - 默认。仅编码双引号。
+ENT_QUOTES - 编码双引号和单引号。
+ENT_NOQUOTES - 不编码任何引号。</code></pre><p>​    如果不对第二个参数进行修改，默认之编码双引号，在这种默认情况下，’单引号’将不会被过滤掉，</p>
+<p>​    可以进行XSS注入。</p>
+<p>​    level1中，就利用了htmlspecialchars（）默认值这一特性进行绕过</p>
+   <img src="E:/ET_Blog/Hexo/source/_posts/images/2.png" style="zoom:80%;" />
 
+<p>​    因此要用单引号对标签元素进行闭合，</p>
+<p>​    payload：’onclick=alert(/aaa/)’</p>
+<p>​    结果如下</p>
+<p>​                                              </p>
+<p>2、</p>
+<img src="E:/ET_Blog/Hexo/source/_posts/images/1.PNG" style="zoom:67%;" />
+
+<p>与上一道题目类似，但是，在这个题目中，还加入了一些过滤的条件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$str = $_GET[&quot;keyword&quot;];</span><br><span class="line">$str2=str_replace(&quot;&lt;script&quot;,&quot;&lt;scr_ipt&quot;,$str);</span><br><span class="line">$str3=str_replace(&quot;on&quot;,&quot;o_n&quot;,$str2);</span><br><span class="line">$str4=str_replace(&quot;src&quot;,&quot;sr_c&quot;,$str3);</span><br><span class="line">$str5=str_replace(&quot;data&quot;,&quot;da_ta&quot;,$str4);</span><br><span class="line">$str6=str_replace(&quot;href&quot;,&quot;hr_ef&quot;,$str5);</span><br><span class="line"></span><br><span class="line">&lt;input name=keyword  value=&quot;&apos;.$str6.&apos;&quot;&gt;</span><br><span class="line">&lt;input type=submit name=submit value=搜索 /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>由上可知，可以在上个payload的基础上进行修改，利用HTML标签不区分大小写的特新进行绕过</p>
+<p>payload: “Onclick=alert(/aaa/)”</p>
+<p>结果如下：</p>
+<img src="E:/ET_Blog/Hexo/source/_posts/images/3.PNG" style="zoom:67%;" />
+
+<p>3、同样可以根据PHP的过滤操作来判断payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$str =strtolower( $_GET[&quot;keyword&quot;]);</span><br><span class="line">$str2=str_replace(&quot;script&quot;,&quot;&quot;,$str);</span><br><span class="line">$str3=str_replace(&quot;on&quot;,&quot;&quot;,$str2);</span><br><span class="line">$str4=str_replace(&quot;src&quot;,&quot;&quot;,$str3);</span><br><span class="line">$str5=str_replace(&quot;data&quot;,&quot;&quot;,$str4);</span><br><span class="line">$str6=str_replace(&quot;href&quot;,&quot;&quot;,$str5);</span><br><span class="line"></span><br><span class="line">&lt;input name=keyword  value=&quot;&apos;.$str6.&apos;&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这次直接替换成空，再次在上次基础上进行双拼写绕过</p>
+<p>payload:”oonnclick=alert(/aaa/)”</p>
+<p>结果如下：</p>
+<p>​                                      <img src="E:/ET_Blog/Hexo/source/_posts/images/4.PNG" style="zoom:67%;" /> </p>
+<p>4、PHP如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$str = strtolower($_GET[&quot;keyword&quot;]);</span><br><span class="line">$str2=str_replace(&quot;script&quot;,&quot;scr_ipt&quot;,$str);</span><br><span class="line">$str3=str_replace(&quot;on&quot;,&quot;o_n&quot;,$str2);</span><br><span class="line">$str4=str_replace(&quot;src&quot;,&quot;sr_c&quot;,$str3);</span><br><span class="line">$str5=str_replace(&quot;data&quot;,&quot;da_ta&quot;,$str4);</span><br><span class="line">$str6=str_replace(&quot;href&quot;,&quot;hr_ef&quot;,$str5);</span><br><span class="line">$str7=str_replace(&apos;&quot;&apos;,&apos;&amp;quot&apos;,$str6);</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line"> echo &apos;&lt;center&gt;&lt;BR&gt;&lt;a href=&quot;&apos;.$str7.&apos;&quot;&gt;友情链接&lt;/a&gt;&lt;/center&gt;&apos;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这次在过滤条件中加入了对”的过滤，同时还有将大写转成小写，可以考虑通过编码进行绕过</p>
+<p>由于对浏览器解析、解码等内容了解有限，于是上网收集了有关资料，进一步了解编码解码的有关内容</p>
+<p><a href="http://xuelinf.github.io/2016/05/18/编码与解码-浏览器做了什么/" target="_blank" rel="noopener">http://xuelinf.github.io/2016/05/18/编码与解码-浏览器做了什么/</a></p>
+<p><a href="https://cloud.tencent.com/developer/article/1516371" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1516371</a></p>
+<img src="E:/ET_Blog/Hexo/source/_posts/images/5.PNG" style="zoom:80%;" />
+
+
+
+<p>payload：java&amp;#115分号（用；markdown自动解码）cript：alert（1）；使用伪协议格式</p>
+<p>成功绕过：</p>
+<img src="E:/ET_Blog/Hexo/source/_posts/images/7.PNG" style="zoom:67%;" />
+
+<p>5、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">$str = strtolower($_GET[&quot;keyword&quot;]);</span><br><span class="line">$str2=str_replace(&quot;script&quot;,&quot;scr_ipt&quot;,$str);</span><br><span class="line">$str3=str_replace(&quot;on&quot;,&quot;o_n&quot;,$str2);</span><br><span class="line">$str4=str_replace(&quot;src&quot;,&quot;sr_c&quot;,$str3);</span><br><span class="line">$str5=str_replace(&quot;data&quot;,&quot;da_ta&quot;,$str4);</span><br><span class="line">$str6=str_replace(&quot;href&quot;,&quot;hr_ef&quot;,$str5);</span><br><span class="line">$str7=str_replace(&apos;&quot;&apos;,&apos;&amp;quot&apos;,$str6);</span><br><span class="line">echo &apos;&lt;center&gt;</span><br><span class="line">&lt;form action=level5.php method=GET&gt;</span><br><span class="line">&lt;input name=keyword  value=&quot;&apos;.htmlspecialchars($str).&apos;&quot;&gt;</span><br><span class="line">&lt;input type=submit name=submit value=添加友情链接 /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;/center&gt;&apos;;</span><br><span class="line">?&gt;</span><br><span class="line">&lt;?php</span><br><span class="line">if(false===strpos($str7,&apos;http://&apos;))</span><br><span class="line">&#123;</span><br><span class="line">  echo &apos;&lt;center&gt;&lt;BR&gt;&lt;a href=&quot;您的链接不合法？有没有！&quot;&gt;友情链接&lt;/a&gt;&lt;/center&gt;&apos;;</span><br><span class="line">        &#125;</span><br><span class="line">else</span><br><span class="line">&#123;</span><br><span class="line">  echo &apos;&lt;center&gt;&lt;BR&gt;&lt;a href=&quot;&apos;.$str7.&apos;&quot;&gt;友情链接&lt;/a&gt;&lt;/center&gt;&apos;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br><span class="line">&lt;center&gt;&lt;img src=level5.png height=&quot;300&quot; width=&quot;300&quot;&gt;&lt;/center&gt;</span><br><span class="line">&lt;?php </span><br><span class="line">echo &quot;&lt;h3 align=center&gt;payload的长度:&quot;.strlen($str7).&quot;&lt;/h3&gt;&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这道题比较令人头疼，一共找到两个注入点，第一个有htmlspecialchars（）方法，无法进行“的闭合，第二个注入点中的链接必须是合法链接，无法使用伪链接。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" target="_blank" rel="noopener" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wechat.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" target="_blank" rel="noopener" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" target="_blank" rel="noopener" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;" target="_blank" rel="noopener"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/06/XSS/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-  
-    </div></section>
+
   
 
-    
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+
+  
+
+  
+
+  
 
 
           </div>
@@ -206,8 +374,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
