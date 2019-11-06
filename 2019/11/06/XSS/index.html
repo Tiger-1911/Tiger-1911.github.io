@@ -8,12 +8,12 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>XSS | Five</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="XSS跨站脚本攻击与防御闭合引号与标签1、PHP中的htmlspecialchars(string,flags,character-set,double_encode)函数 ​    作用：将预定义的字符转化为html实体 ​    预定义字符如下：&amp;amp; “ ‘ &amp;lt; &amp;gt; ​    第二个参数： ENT_COMPAT - 默认。仅编码双引号。 ENT_QUOTES - 编码双引">
+  <meta name="description" content="XSS跨站脚本攻击与防御">
 <meta property="og:type" content="article">
 <meta property="og:title" content="XSS">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;06&#x2F;XSS&#x2F;index.html">
 <meta property="og:site_name" content="Five">
-<meta property="og:description" content="XSS跨站脚本攻击与防御闭合引号与标签1、PHP中的htmlspecialchars(string,flags,character-set,double_encode)函数 ​    作用：将预定义的字符转化为html实体 ​    预定义字符如下：&amp;amp; “ ‘ &amp;lt; &amp;gt; ​    第二个参数： ENT_COMPAT - 默认。仅编码双引号。 ENT_QUOTES - 编码双引">
+<meta property="og:description" content="XSS跨站脚本攻击与防御">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="e:&#x2F;ET_Blog&#x2F;Hexo&#x2F;source&#x2F;_posts&#x2F;images&#x2F;2.png">
 <meta property="og:image" content="e:&#x2F;ET_Blog&#x2F;Hexo&#x2F;source&#x2F;_posts&#x2F;images&#x2F;1.PNG">
@@ -21,7 +21,7 @@
 <meta property="og:image" content="e:&#x2F;ET_Blog&#x2F;Hexo&#x2F;source&#x2F;_posts&#x2F;images&#x2F;4.PNG">
 <meta property="og:image" content="e:&#x2F;ET_Blog&#x2F;Hexo&#x2F;source&#x2F;_posts&#x2F;images&#x2F;5.PNG">
 <meta property="og:image" content="e:&#x2F;ET_Blog&#x2F;Hexo&#x2F;source&#x2F;_posts&#x2F;images&#x2F;7.PNG">
-<meta property="og:updated_time" content="2019-11-06T14:10:56.920Z">
+<meta property="og:updated_time" content="2019-11-06T14:14:45.898Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="e:&#x2F;ET_Blog&#x2F;Hexo&#x2F;source&#x2F;_posts&#x2F;images&#x2F;2.png">
   
@@ -171,9 +171,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a>
+        <h1 id="XSS跨站脚本攻击与防御"><a href="#XSS跨站脚本攻击与防御" class="headerlink" title="XSS跨站脚本攻击与防御"></a>XSS跨站脚本攻击与防御</h1><a id="more"></a>
 
-<h1 id="XSS跨站脚本攻击与防御"><a href="#XSS跨站脚本攻击与防御" class="headerlink" title="XSS跨站脚本攻击与防御"></a>XSS跨站脚本攻击与防御</h1><h2 id="闭合引号与标签"><a href="#闭合引号与标签" class="headerlink" title="闭合引号与标签"></a>闭合引号与标签</h2><p>1、PHP中的htmlspecialchars(string,flags,character-set,double_encode)函数</p>
+<h2 id="闭合引号与标签"><a href="#闭合引号与标签" class="headerlink" title="闭合引号与标签"></a>闭合引号与标签</h2><p>1、PHP中的htmlspecialchars(string,flags,character-set,double_encode)函数</p>
 <p>​    作用：将预定义的字符转化为html实体</p>
 <p>​    预定义字符如下：&amp; “ ‘ &lt; &gt;</p>
 <p>​    第二个参数：</p>
